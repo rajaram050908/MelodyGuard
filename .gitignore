@@ -1,0 +1,16 @@
+﻿.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+*.log
+*.tmp
+dataset/
+reference_midis/
+*.dump
+*.backup

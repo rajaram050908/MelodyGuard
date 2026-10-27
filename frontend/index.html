@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MelodyGuard | Musical Similarity Search</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <a class="brand" href="#">
+            <span class="brand-icon">M</span>
+            <span>MelodyGuard</span>
+        </a>
+
+        <span class="system-status">
+            <span class="status-dot"></span>
+            LOCAL DATABASE
+        </span>
+    </header>
+
+    <main class="container">
+
+        <!-- HERO -->
+        <section class="hero">
+            <p class="eyebrow">MUSIC INTELLIGENCE PLATFORM</p>
+
+            <h1>Discover melodies<br>that sound <span>similar.</span></h1>
+
+            <p class="subtitle">
+                Upload a MIDI file to analyze its melody and search
+                your reference music catalogue.
+            </p>
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">REFERENCE SONGS</span>
+                <strong id="song-count">—</strong>
+                <span class="stat-description">In your catalogue</span>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-label">MELODY SEGMENTS</span>
+                <strong id="segment-count">—</strong>
+                <span class="stat-description">Available for searching</span>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-label">DATABASE STATUS</span>
+                <strong id="database-status" class="status-text">Checking</strong>
+                <span class="stat-description">PostgreSQL connection</span>
+            </div>
+        </section>
+
+        <!-- UPLOAD -->
+        <section class="workspace">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">NEW ANALYSIS</p>
+                    <h2>Upload your MIDI</h2>
+                </div>
+
+                <span class="file-badge">.MID / .MIDI</span>
+            </div>
+
+            <form id="upload-form">
+                <label class="drop-zone" id="drop-zone" for="midi-file">
+                    <input
+                        type="file"
+                        id="midi-file"
+                        accept=".mid,.midi,audio/midi,audio/x-midi"
+                        hidden
+                    >
+
+                    <span class="upload-icon">↑</span>
+
+                    <strong id="upload-title">
+                        Drop your MIDI file here
+                    </strong>
+
+                    <span id="upload-description">
+                        or click to browse your computer
+                    </span>
+
+                    <span class="file-limit">
+                        MIDI files up to 20 MB
+                    </span>
+                </label>
+
+                <div id="selected-file" class="selected-file hidden"></div>
+
+                <button type="submit" id="upload-button" class="primary-button">
+                    Upload and Analyze <span>→</span>
+                </button>
+            </form>
+
+            <div id="message" class="message hidden" role="status"></div>
+        </section>
+
+        <!-- SIMILARITY SEARCH RESULTS -->
+        <section class="workspace results-workspace" id="results-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">SIMILARITY ANALYSIS</p>
+                    <h2>Search Results</h2>
+                </div>
+
+                <span id="results-summary" class="file-badge">
+                    No search yet
+                </span>
+            </div>
+
+            <div class="results-metadata" id="results-metadata">
+                Upload a MIDI file to see potential matches here.
+            </div>
+
+            <div id="results-empty" class="results-empty">
+                Your matching songs will appear in this table.
+            </div>
+
+            <div id="results-table-wrapper" class="table-wrapper hidden">
+                <table class="results-table">
+    <thead>
+        <tr>
+            <th>REFERENCE SONG</th>
+            <th>MATCHING SEGMENTS</th>
+            <th>MATCH RATIO</th>
+        </tr>
+    </thead>
+
+    <tbody id="results-table"></tbody>
+</table>
+            </div>
+
+            <p class="score-note">
+                Similarity scores are heuristic ranking scores, not probabilities
+                of plagiarism. Results require further musical analysis.
+            </p>
+        </section>
+
+        <!-- REFERENCE CATALOGUE -->
+        <section class="workspace">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">YOUR REFERENCE CATALOGUE</p>
+                    <h2>Available Music</h2>
+                </div>
+
+                <button id="refresh-button" class="secondary-button">
+                    Refresh
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SONG</th>
+                            <th>ARTIST</th>
+                            <th>SEGMENTS</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="songs-table">
+                        <tr>
+                            <td colspan="4" class="empty-state">
+                                Loading reference songs...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                        <!-- CATALOGUE PAGINATION -->
+            <div class="pagination-bar">
+                <span id="songs-page-info" class="pagination-info">
+                    Loading catalogue...
+                </span>
+
+                <div class="pagination-controls">
+                    <button
+                        id="songs-prev"
+                        class="secondary-button pagination-button"
+                        type="button"
+                        disabled
+                    >
+                        ← Previous
+                    </button>
+
+                    <span id="songs-page-number" class="page-number">
+                        Page 1
+                    </span>
+
+                    <button
+                        id="songs-next"
+                        class="secondary-button pagination-button"
+                        type="button"
+                        disabled
+                    >
+                        Next →
+                    </button>
+                </div>
+
+                <label class="page-size-control">
+                    Rows
+                    <select id="songs-page-size">
+                        <option value="10">10</option>
+                        <option value="20" selected>20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div>
+        </section>
+
+        <footer>
+            <span>MELODYGUARD © 2026</span>
+            <span>Powered by PostgreSQL + pgvector</span>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

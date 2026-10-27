@@ -1,0 +1,678 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+    --background: #0b0d12;
+    --panel: #12151d;
+    --border: #272b36;
+    --text: #f3f4f8;
+    --muted: #9298a8;
+    --accent: #a7f36a;
+    --danger: #ff8585;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: "DM Sans", sans-serif;
+    min-height: 100vh;
+}
+
+.navbar {
+    min-height: 76px;
+    padding: 0 8%;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.brand-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    color: #10150c;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    font-size: 21px;
+}
+
+.system-status {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1.3px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.container {
+    width: min(1100px, 88%);
+    margin: auto;
+}
+
+.hero {
+    padding: 75px 0 42px;
+}
+
+.eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin: 0 0 15px;
+}
+
+h1,
+h2 {
+    font-family: "Space Grotesk", sans-serif;
+    margin: 0;
+}
+
+h1 {
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 1.08;
+    letter-spacing: -2px;
+}
+
+h1 span {
+    color: var(--accent);
+}
+
+.subtitle {
+    max-width: 570px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-top: 22px;
+    font-size: 15px;
+}
+
+/* STATISTICS */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 15px 0 32px;
+}
+
+.stat-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 23px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1.2px;
+}
+
+.stat-card strong {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 30px;
+}
+
+.stat-description {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.status-text {
+    color: var(--accent);
+    font-size: 23px !important;
+}
+
+/* WORKSPACE PANELS */
+
+.workspace {
+    padding: 28px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    margin-bottom: 24px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    font-size: 24px;
+}
+
+.file-badge {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+/* MIDI UPLOAD */
+
+.drop-zone {
+    min-height: 220px;
+    border: 1px dashed #454b5a;
+    border-radius: 14px;
+    background: #0e1118;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    text-align: center;
+    padding: 25px;
+}
+
+.drop-zone:hover,
+.drop-zone.dragging {
+    border-color: var(--accent);
+    background: #151b15;
+}
+
+.upload-icon {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #414653;
+    border-radius: 14px;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 5px;
+}
+
+.drop-zone strong {
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+.drop-zone > span:not(.upload-icon) {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.drop-zone .file-limit {
+    font-size: 11px !important;
+    margin-top: 5px;
+}
+
+.selected-file {
+    margin-top: 15px;
+    border: 1px solid var(--border);
+    padding: 13px;
+    border-radius: 9px;
+    color: var(--accent);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.primary-button {
+    margin-top: 20px;
+    padding: 15px 20px;
+    width: 100%;
+    background: var(--accent);
+    color: #11170c;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: filter 0.2s, opacity 0.2s;
+}
+
+.primary-button:hover {
+    filter: brightness(1.08);
+}
+
+.primary-button:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.primary-button span {
+    font-size: 18px;
+}
+
+/* STATUS MESSAGES */
+
+.message {
+    margin-top: 18px;
+    padding: 15px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    background: #0e1118;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.message.success {
+    border-color: #486b36;
+}
+
+.message.error {
+    border-color: #754040;
+    color: var(--danger);
+}
+
+/* BUTTONS */
+
+.secondary-button {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 9px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.secondary-button:hover {
+    border-color: var(--accent);
+}
+
+/* TABLES */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    font-weight: 600;
+    padding: 15px 12px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+td {
+    padding: 17px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.song-title {
+    font-weight: 600;
+}
+
+.artist-name {
+    color: var(--muted);
+}
+
+.count-badge {
+    background: #242b20;
+    color: var(--accent);
+    border-radius: 7px;
+    padding: 6px 9px;
+    font-size: 11px;
+}
+
+.catalogue-status {
+    color: var(--accent);
+    font-size: 11px;
+}
+
+.empty-state {
+    color: var(--muted);
+    text-align: center;
+    padding: 30px;
+}
+
+/* SIMILARITY RESULTS */
+
+.results-workspace {
+    scroll-margin-top: 24px;
+}
+
+.results-metadata {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: -5px 0 18px;
+}
+
+.results-empty {
+    color: var(--muted);
+    text-align: center;
+    padding: 30px 12px;
+    line-height: 1.7;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    background: #0e1118;
+}
+
+.results-table {
+    min-width: 800px;
+}
+
+.results-table th {
+    background: #191e29;
+}
+
+.results-table td {
+    white-space: nowrap;
+}
+
+.results-table td.song-title,
+.results-table td.artist-name {
+    white-space: normal;
+    min-width: 130px;
+}
+
+.similarity-value {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.score-note {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 18px 0 0;
+}
+
+/* FOOTER */
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 20px 0 35px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.8px;
+}
+
+/* RESPONSIVE LAYOUT */
+
+@media (max-width: 800px) {
+    .container {
+        width: 92%;
+    }
+
+    .navbar {
+        padding: 0 4%;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .workspace {
+        padding: 20px;
+    }
+
+    .results-workspace .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 500px) {
+    .hero {
+        padding-top: 50px;
+    }
+
+    h1 {
+        letter-spacing: -1px;
+    }
+
+    .brand {
+        font-size: 18px;
+    }
+
+    .system-status {
+        font-size: 9px;
+    }
+
+    .workspace {
+        padding: 16px;
+    }
+
+    .section-heading h2 {
+        font-size: 21px;
+    }
+
+    footer {
+        flex-direction: column;
+    }
+}
+
+/* Expandable song results */
+
+.song-result-row {
+    transition: background 0.2s;
+}
+
+.song-result-row:hover {
+    background: #1b202c;
+}
+
+.song-expand-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 4px 0;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.expand-arrow {
+    width: 18px;
+    color: var(--accent);
+    font-size: 12px;
+}
+
+.song-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.song-details strong {
+    font-size: 14px;
+}
+
+.song-details .artist-name {
+    font-size: 12px;
+}
+
+.song-segments-container {
+    padding: 18px;
+    margin: 8px 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #0e1118;
+}
+
+.song-segments-container h3 {
+    margin: 0 0 15px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 16px;
+}
+
+.segment-details-table {
+    min-width: 560px;
+}
+
+.segment-details-table th {
+    background: #191e29;
+}
+
+.segment-details-table td {
+    white-space: nowrap;
+}
+
+.song-result-row td {
+    padding-top: 19px;
+    padding-bottom: 19px;
+}
+
+.song-segments-row > td {
+    padding: 0 12px 16px;
+}
+
+@media (max-width: 650px) {
+    .song-segments-container {
+        padding: 12px;
+    }
+}
+
+/* =========================================
+   AVAILABLE MUSIC PAGINATION
+   ========================================= */
+
+.pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 18px;
+    padding: 14px 0 4px;
+}
+
+.pagination-info {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.pagination-button {
+    padding: 9px 13px;
+    white-space: nowrap;
+}
+
+.pagination-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.pagination-button:disabled:hover {
+    border-color: var(--border);
+}
+
+.page-number {
+    min-width: 75px;
+    color: var(--text);
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.page-size-control {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.page-size-control select {
+    padding: 8px 10px;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.page-size-control select:focus {
+    outline: 1px solid var(--accent);
+}
+
+@media (max-width: 650px) {
+    .pagination-bar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .pagination-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .page-size-control {
+        align-self: flex-end;
+    }
+}

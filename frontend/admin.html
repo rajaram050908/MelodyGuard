@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MelodyGuard | Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <script src="admin.js" defer></script>
+</head>
+<body>
+    <div class="background-glow"></div>
+
+    <!-- LOGIN -->
+    <section id="login-view" class="login-container">
+        <div class="login-card">
+            <div class="logo">M<span>G</span></div>
+            <p class="eyebrow">MELODYGUARD</p>
+            <h1>Admin Portal</h1>
+            <p class="muted">Sign in to manage your reference music database.</p>
+
+            <form id="login-form">
+                <label for="username">Username</label>
+                <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="Enter username"
+                    autocomplete="username"
+                    required
+                >
+
+                <label for="password">Password</label>
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Enter password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button type="submit" id="login-button" class="primary-button">
+                    Sign In
+                </button>
+
+                <p id="login-message" class="message" role="alert"></p>
+            </form>
+
+            <a href="index.html" class="back-link">← Back to similarity search</a>
+        </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard-view" class="dashboard hidden">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo small-logo">M<span>G</span></div>
+                <div>
+                    <strong>MelodyGuard</strong>
+                    <small>Admin Console</small>
+                </div>
+            </div>
+
+            <nav>
+                <button class="nav-item active" data-section="overview">
+                    <span>▦</span> Overview
+                </button>
+
+                <button class="nav-item" data-section="library">
+                    <span>♫</span> Reference Library
+                </button>
+                <button class="nav-item" data-section="add-reference">
+                    <span>＋</span> Add Reference
+                </button>
+
+                <button class="nav-item" data-section="imports">
+                    <span>◷</span> History
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="connection-indicator">
+                    <span class="status-dot"></span>
+                    API connected
+                </div>
+                <button id="logout-button" class="logout-button">
+                    Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">ADMINISTRATION</p>
+                    <h1 id="page-title">Dashboard Overview</h1>
+                </div>
+
+                <div class="admin-profile">
+                    <div class="avatar">A</div>
+                    <div>
+                        <strong id="admin-username">Administrator</strong>
+                        <small>Database Manager</small>
+                    </div>
+                </div>
+            </header>
+
+            <!-- OVERVIEW -->
+            <section id="overview-section" class="content-section">
+                <div class="welcome-banner">
+                    <div>
+                        <p class="eyebrow">YOUR MUSIC DATABASE</p>
+                        <h2>Welcome back.</h2>
+                        <p>Monitor your reference collection and database activity.</p>
+                    </div>
+                    <div class="music-decoration">♫</div>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <div class="stat-icon purple">♫</div>
+                        <p>Total Reference Songs</p>
+                        <h2 id="total-songs">—</h2>
+                        <small>Stored in PostgreSQL</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon blue">▤</div>
+                        <p>Melody Segments</p>
+                        <h2 id="total-segments">—</h2>
+                        <small>Extracted feature records</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon green">⌕</div>
+                        <p>Searches Performed</p>
+                        <h2 id="total-searches">—</h2>
+                        <small>Recorded search requests</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon orange">⇧</div>
+                        <p>Successful Imports</p>
+                        <h2 id="successful-imports">—</h2>
+                        <small>Reference import jobs</small>
+                    </article>
+                </div>
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Database status</h2>
+                        <p class="muted">Live information retrieved from your backend.</p>
+                    </div>
+                    <button id="refresh-button" class="secondary-button">
+                        ↻ Refresh
+                    </button>
+                </div>
+
+                <div class="status-card">
+                    <div>
+                        <span class="status-dot"></span>
+                        <strong>MelodyGuard API</strong>
+                    </div>
+                    <span id="api-status">Checking connection...</span>
+                </div>
+
+                <div class="status-card">
+                    <div>
+                        <span class="status-dot"></span>
+                        <strong>Failed Imports</strong>
+                    </div>
+                    <span id="failed-imports">—</span>
+                </div>
+
+                <p id="dashboard-message" class="message" role="status"></p>
+            </section>
+
+            <!-- REFERENCE LIBRARY -->
+            <section id="library-section" class="content-section hidden">
+                <div class="section-heading">
+                    <div>
+                        <h2>Reference Library</h2>
+                        <p class="muted">Browse the reference songs currently stored in PostgreSQL.</p>
+                    </div>
+                    <button id="library-refresh-button" class="secondary-button">
+                        ↻ Refresh
+                    </button>
+                </div>
+
+                <div class="toolbar library-toolbar">
+                    <input
+                        id="song-search"
+                        type="search"
+                        placeholder="Search by title or artist..."
+                    >
+
+                    <label class="sort-control" for="song-sort">
+                        Sort by
+
+                        <select id="song-sort">
+                            <option value="title-asc">Song title (A–Z)</option>
+                            <option value="title-desc">Song title (Z–A)</option>
+                            <option value="artist-asc">Artist (A–Z)</option>
+                            <option value="artist-desc">Artist (Z–A)</option>
+                            <option value="segments-desc">Most segments</option>
+                            <option value="segments-asc">Fewest segments</option>
+                            <option value="id-desc">Newest ID first</option>
+                            <option value="id-asc">Oldest ID first</option>
+                        </select>
+                    </label>
+
+                    <span id="library-count" class="muted">
+                        Loading songs...
+                    </span>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Song</th>
+                                <th>Artist</th>
+                                <th>Segments</th>
+                                <th>Song ID</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="songs-table-body">
+                            <tr>
+                                <td colspan="5">Loading reference library...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p id="library-message" class="message" role="status"></p>
+            </section>
+            
+            <!-- ADD REFERENCE -->
+            <section id="add-reference-section" class="content-section hidden">
+                <div class="section-heading">
+                    <div>
+                        <h2>Add Reference MIDI</h2>
+                        <p class="muted">
+                            Upload a MIDI file and add it to the reference database.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="upload-panel">
+                    <form id="reference-upload-form">
+                        <label for="midi-files">Select MIDI files</label>
+
+                        <input
+                            id="midi-files"
+                            type="file"
+                            accept=".mid,.midi,audio/midi,audio/x-midi"
+                            multiple
+                            required
+                        >
+
+                        <p class="muted">
+                            You can select multiple MIDI files. Each file will be processed
+                            separately.
+                        </p>
+
+                        <div id="file-metadata-list"></div>
+
+                        <button
+                            type="submit"
+                            id="import-button"
+                            class="primary-button"
+                        >
+                            Import Selected References
+                        </button>
+
+                        <p id="upload-message" class="message" role="status"></p>
+                    </form>
+                </div>
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Import Results</h2>
+                        <p class="muted">
+                            Status of files processed during this upload.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="import-results" class="import-results">
+                    <p class="muted">No files imported yet.</p>
+                </div>
+            </section>
+            
+            <!-- HISTORY -->
+            <section id="imports-section" class="content-section hidden">
+
+                <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date &amp; Time</th>
+                            <th>Activity</th>
+                            <th>Reference ID</th>
+                            <th>Song / File</th>
+                            <th>Artist</th>
+                            <th>Status</th>
+                            <th>Segments</th>
+                            <th>Performed By</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="history-table-body">
+                        <tr>
+                            <td colspan="9">Loading activity history...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            </section>
+        </main>
+    </section>
+</body>
+</html>
